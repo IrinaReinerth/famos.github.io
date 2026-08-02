@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="FAMOS — AI Family Operating System. Less thinking. More living." />
+  <title>FAMOS — Less thinking. More living.</title>
+  <style>
+    :root{
+      --warm:#F8F5F1;
+      --ink:#1E1E1E;
+      --clay:#6D4B44;
+      --taupe:#8E7768;
+      --stone:#BDB5AC;
+      --paper:#FFFDFC;
+      --line:rgba(30,30,30,.12);
+      --radius:28px;
+      --shadow:0 24px 70px rgba(60,45,35,.12);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(109,75,68,.09), transparent 28rem),
+        var(--warm);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height:1.55;
+    }
+    h1,h2,h3,.serif{
+      font-family:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+      font-weight:500;
+      line-height:1.02;
+      letter-spacing:-.03em;
+    }
+    a{color:inherit}
+    .wrap{width:min(1180px,calc(100% - 36px));margin:auto}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:.6rem;
+      text-transform:uppercase;letter-spacing:.17em;font-size:.75rem;font-weight:800;color:var(--clay)
+    }
+    .eyebrow:before{content:"";width:34px;height:1px;background:currentColor}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:15px 24px;border-radius:999px;text-decoration:none;font-weight:800;
+      border:1px solid transparent;transition:.2s ease
+    }
+    .btn-primary{background:var(--ink);color:white;box-shadow:0 12px 28px rgba(30,30,30,.15)}
+    .btn-primary:hover{transform:translateY(-2px);background:var(--clay)}
+    .btn-ghost{border-color:var(--line);background:rgba(255,255,255,.45)}
+    .btn-ghost:hover{background:white}
+    header{
+      position:sticky;top:0;z-index:20;
+      backdrop-filter:blur(14px);
+      background:rgba(248,245,241,.82);
+      border-bottom:1px solid var(--line)
+    }
+    nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{font-family:Georgia,serif;font-size:1.15rem;text-decoration:none;letter-spacing:.04em}
+    .navlinks{display:flex;align-items:center;gap:20px}
+    .navlinks a{font-size:.94rem;text-decoration:none;color:#665c55}
+    .hero{
+      min-height:calc(100vh - 72px);
+      display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;
+      padding:70px 0 84px
+    }
+    .hero h1{font-size:clamp(4rem,8vw,7.6rem);margin:.35rem 0 1.2rem}
+    .hero p{max-width:650px;font-size:clamp(1.06rem,1.6vw,1.28rem);color:#6f655d}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    .micro{font-size:.88rem!important;margin-top:16px}
+    .visual{
+      position:relative;padding:16px;border-radius:36px;background:rgba(255,255,255,.55);
+      box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.8)
+    }
+    .dashboard{
+      border-radius:25px;background:var(--paper);padding:22px;min-height:560px;
+      display:grid;grid-template-columns:1.15fr .85fr;gap:18px
+    }
+    .dash-main,.dash-side{display:grid;gap:14px}
+    .panel{
+      border:1px solid var(--line);border-radius:20px;padding:18px;background:white
+    }
+    .panel h3{font-family:inherit;font-size:.95rem;margin:0 0 12px;font-weight:800}
+    .task{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+    .task:last-child{border-bottom:0}
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--clay);margin-top:.45rem;flex:0 0 8px}
+    .metric{font-size:2.2rem;font-family:Georgia,serif;color:var(--clay)}
+    section{padding:100px 0}
+    .section-head{max-width:760px;margin-bottom:42px}
+    .section-head h2{font-size:clamp(2.7rem,5vw,4.8rem);margin:.4rem 0 1rem}
+    .section-head p{color:#746a62;font-size:1.08rem}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{
+      background:rgba(255,253,252,.78);border:1px solid var(--line);border-radius:var(--radius);
+      padding:28px;box-shadow:0 8px 30px rgba(60,40,25,.05)
+    }
+    .card .num{font-family:Georgia,serif;color:var(--clay);font-size:2rem}
+    .card h3{font-size:1.6rem;margin:12px 0 8px}
+    .card p{color:#756b63;margin:0}
+    .dark{
+      background:var(--ink);color:#f7f0e8;border-radius:42px;padding:60px;position:relative;overflow:hidden
+    }
+    .dark:after{
+      content:"";position:absolute;width:440px;height:440px;border-radius:50%;
+      background:rgba(109,75,68,.32);filter:blur(20px);right:-180px;top:-180px
+    }
+    .dark-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:50px}
+    .steps{display:grid;gap:12px}
+    .step{display:grid;grid-template-columns:48px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+    .step b{font-family:Georgia,serif;font-size:1.7rem;color:#d7b4a8}
+    .step h3{font-family:inherit;font-size:1rem;margin:0 0 4px}
+    .step p{color:#c7bbb1;margin:0}
+    .quote{
+      font-family:Georgia,serif;font-size:clamp(2rem,4vw,3.6rem);line-height:1.08;
+      max-width:850px;margin:auto;text-align:center
+    }
+    .pricing{
+      display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch
+    }
+    .price-card{background:white;border:1px solid var(--line);border-radius:30px;padding:32px}
+    .price-card.featured{background:var(--clay);color:white}
+    .price{font-family:Georgia,serif;font-size:3.2rem;margin:20px 0}
+    .price-card ul{padding-left:1.1rem;color:inherit}
+    details{background:white;border:1px solid var(--line);border-radius:18px;padding:18px 22px;margin-bottom:12px}
+    summary{cursor:pointer;font-weight:800}
+    details p{color:#756b63}
+    .cta{
+      border-radius:42px;background:linear-gradient(135deg,#6D4B44,#8E7768);
+      color:white;text-align:center;padding:70px 30px
+    }
+    .cta h2{font-size:clamp(3rem,6vw,5.5rem);margin:0 0 15px}
+    .cta p{max-width:670px;margin:0 auto 26px;color:#f0dfd8}
+    footer{padding:38px 0 55px;color:#7b7169;font-size:.9rem}
+    .footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    @media(max-width:900px){
+      .hero,.dark-grid{grid-template-columns:1fr}
+      .dashboard{min-height:auto}
+      .grid-3,.pricing{grid-template-columns:1fr 1fr}
+      .navlinks a:not(.btn){display:none}
+    }
+    @media(max-width:640px){
+      .wrap{width:min(100% - 24px,1180px)}
+      .hero{padding-top:42px}
+      .hero h1{font-size:3.6rem}
+      .dashboard,.grid-3,.pricing{grid-template-columns:1fr}
+      .dark{padding:34px 22px}
+      section{padding:72px 0}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav>
+        <a class="brand" href="#">FAMOS</a>
+        <div class="navlinks">
+          <a href="#why">Почему FAMOS</a>
+          <a href="#how">Как это работает</a>
+          <a href="#starter">Starter</a>
+          <a class="btn btn-primary" href="#buy">Создать Family OS</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero">
+        <div>
+          <span class="eyebrow">AI Family Operating System</span>
+          <h1>Less thinking.<br><span style="color:var(--clay)">More living.</span></h1>
+          <p>FAMOS превращает распорядок семьи, меню, домашние дела, стирку, заботу о ребёнке и питомцах в один спокойный ежедневный дашборд.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#buy">Создать мою Family OS →</a>
+            <a class="btn btn-ghost" href="#how">Посмотреть метод</a>
+          </div>
+          <p class="micro">Не приложение. Короткий гайд, мастер-промпт и готовая система за один вечер.</p>
+        </div>
+
+        <div class="visual" aria-label="Пример дашборда FAMOS">
+          <div class="dashboard">
+            <div class="dash-main">
+              <div class="panel">
+                <h3>TODAY · MONDAY</h3>
+                <div class="task"><span class="dot"></span><span>07:30 Завтрак и сборы</span></div>
+                <div class="task"><span class="dot"></span><span>08:30 Прогулка с собакой</span></div>
+                <div class="task"><span class="dot"></span><span>09:30 Рабочий блок</span></div>
+                <div class="task"><span class="dot"></span><span>13:00 Сон ребёнка / тихий час</span></div>
+                <div class="task"><span class="dot"></span><span>19:00 Ужин</span></div>
+              </div>
+              <div class="panel">
+                <h3>СЕГОДНЯ В ФОКУСЕ</h3>
+                <div class="metric">3</div>
+                <p>главных решения уже приняты системой</p>
+              </div>
+            </div>
+            <div class="dash-side">
+              <div class="panel"><h3>HOME</h3><p>Кухня · белая стирка · заказать продукты</p></div>
+              <div class="panel"><h3>MEALS</h3><p>Овсянка · паста · курица с рисом</p></div>
+              <div class="panel"><h3>DOG</h3><p>2 прогулки · лекарство вечером</p></div>
+              <div class="panel"><h3>RESET</h3><p>Подготовить одежду и проверить календарь</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section id="why">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">невидимая работа</span>
+          <h2>Тебе не нужен ещё один планер.</h2>
+          <p>Планеры хранят решения. FAMOS помогает их принимать — с учётом реальной жизни, энергии, семьи и непредсказуемых дней.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card"><span class="num">01</span><h3>Меньше помнить</h3><p>Меню, стирка, дела по дому, календарь и ритмы семьи живут в системе, а не в голове.</p></article>
+          <article class="card"><span class="num">02</span><h3>Меньше решать</h3><p>AI помогает определить, что важно сегодня, что можно перенести и где оставить место для отдыха.</p></article>
+          <article class="card"><span class="num">03</span><h3>Больше жить</h3><p>Открываешь один экран и сразу понимаешь, как выглядит день. Без перегруза и чувства вины.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <div class="dark">
+          <div class="dark-grid">
+            <div>
+              <span class="eyebrow" style="color:#d7b4a8">как это работает</span>
+              <h2 class="serif" style="font-size:clamp(3rem,5vw,5rem);margin:.5rem 0 1rem">Построй свою Family OS за один вечер.</h2>
+              <p style="color:#c7bbb1;font-size:1.08rem">FAMOS Starter проводит тебя через короткий AI-онбординг и превращает ответы в персональный дашборд.</p>
+            </div>
+            <div class="steps">
+              <div class="step"><b>1</b><div><h3>Открой ChatGPT</h3><p>Скопируй мастер-промпт FAMOS.</p></div></div>
+              <div class="step"><b>2</b><div><h3>Ответь на вопросы</h3><p>Про семью, работу, детей, питомцев, еду, стирку и энергию.</p></div></div>
+              <div class="step"><b>3</b><div><h3>Получи систему</h3><p>AI создаст Today, Week, Meal OS, Laundry OS и ритуалы.</p></div></div>
+              <div class="step"><b>4</b><div><h3>Открывай один экран</h3><p>Каждый день начинай с готового обзора.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <p class="quote">“Your home shouldn’t depend on your memory. It should run on a system.”</p>
+      </div>
+    </section>
+
+    <section id="starter">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">famos starter</span>
+          <h2>Короткий продукт для быстрого результата.</h2>
+          <p>Без сложного приложения и долгой настройки. Только то, что необходимо для первой рабочей версии Family OS.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card"><h3>Starter Guide</h3><p>Стильный PDF с методом, инструкцией и правилами настройки системы.</p></article>
+          <article class="card"><h3>Master Prompt</h3><p>Готовый промпт, который превращает ChatGPT в консультанта FAMOS.</p></article>
+          <article class="card"><h3>Dashboard Structure</h3><p>Шаблон Today и Week, меню, стирка, дом, ребёнок, питомец и ритуалы.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="buy">
+      <div class="wrap">
+        <div class="pricing">
+          <div class="price-card">
+            <span class="eyebrow">starter</span>
+            <h2 class="serif" style="font-size:3rem;margin:.6rem 0">FAMOS Starter</h2>
+            <div class="price">€29</div>
+            <ul>
+              <li>Starter Guide PDF</li>
+              <li>ChatGPT Master Prompt</li>
+              <li>Quick Start инструкция</li>
+              <li>Пример готового дашборда</li>
+            </ul>
+            <a class="btn btn-primary" href="https://example.com/checkout">Получить доступ →</a>
+          </div>
+          <div class="price-card featured">
+            <span class="eyebrow" style="color:#f0ded8">coming next</span>
+            <h2 class="serif" style="font-size:3rem;margin:.6rem 0">FAMOS AI</h2>
+            <div class="price">Soon</div>
+            <p>Приложение, которое будет автоматически обновлять Family OS, адаптировать день и переносить задачи.</p>
+            <a class="btn btn-ghost" style="background:white;color:var(--ink)" href="#waitlist">В лист ожидания</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">faq</span>
+          <h2>Перед началом</h2>
+        </div>
+        <details open><summary>Мне нужна платная версия ChatGPT?</summary><p>Нет. Для MVP достаточно доступной тебе версии ChatGPT, которая умеет вести диалог и форматировать длинные ответы.</p></details>
+        <details><summary>Сколько занимает настройка?</summary><p>Обычно 20–40 минут, в зависимости от количества членов семьи и деталей распорядка.</p></details>
+        <details><summary>Что делать, если результат слишком сложный?</summary><p>Попроси FAMOS сократить систему до одного экрана и не более трёх ключевых задач на день.</p></details>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="cta">
+          <h2>Less thinking.<br>More living.</h2>
+          <p>Пусть система держит домашнюю жизнь, а твоя голова останется для идей, близких и настоящего отдыха.</p>
+          <a class="btn btn-primary" style="background:white;color:var(--ink)" href="https://example.com/checkout">Создать мою Family OS →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>© 2026 FAMOS</span>
+      <span>Family Operating System · Less thinking. More living.</span>
+    </div>
+  </footer>
+</body>
+</html>
